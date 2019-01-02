@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<script type="text/javascript">
+function toplam(){
+var sayi1 = document.getElementById("sayi1").value;
+var sayi2 = document.getElementById("sayi2").value;
+
+	if(sayi1 == "" || sayi2 == "") {
+		document.getElementById("sonuc").value="Boş alan bırakmayınız.";
+	}else {
+		document.getElementById("sonuc").value= parseInt(sayi2)-parseInt(sayi1);
+	}
+}
+setInterval("toplam()", 100);
+</script>
+</head>
+<body>
+	<form action="" method="GET">
+	<table>
+		<thead>
+			<tr style="background: #efa1a1;">
+				<th></th>
+				<th>Adı Soyadı</th>
+				<th>Mesai Başlangıcı</th>
+				<th>Mesai Bitişi</th>
+				<th>Mesai saati</th>
+				<th>Kaydet</th>
+			</tr>
+		</thead>
+
+		
+		<tbody>
+<?php 
+$kutu = 'Giriş Saati: <input type="text" name="sayi1" id="sayi1">';
+$kutu2 = 'Çıkış Saati: <input type="text" name="sayi2" id="sayi2">';
+$onay = 'Mesai Saati:<input type="text" name="sonuc" id="sonuc">';
+
+$idsay=0;
+include('ayar.php');
+$query = $db->query("SELECT * FROM  personelkayit order by personelid", PDO::FETCH_ASSOC); 
+
+	if ($query > 0) foreach( $query as $row ){	
+	$idsay++;
+	$id= $row['personelid'];				
+?>
+
+<tr>
+				<td><?php echo $idsay; ?></td>
+				<td><?php echo $row["ad"]; ?></a></td>
+				<td><?php echo $kutu; ?></td>
+				<td><?php echo $kutu2; ?></td>
+				<td><?php echo $onay; ?></td>
+			</tr>
+		<?php } ?>
+		</tbody>
+</table>
+</form>
+</body>
+</html>
